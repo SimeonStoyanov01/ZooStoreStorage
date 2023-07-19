@@ -1,4 +1,4 @@
-package com.example.tinqin.zoostorestorage.data.entity;
+package com.example.tinqin.zoostorestorage.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

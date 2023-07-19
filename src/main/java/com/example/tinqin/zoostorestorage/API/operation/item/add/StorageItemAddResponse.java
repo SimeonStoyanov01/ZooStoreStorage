@@ -1,5 +1,6 @@
-package com.example.tinqin.zoostorestorage.API.response;
+package com.example.tinqin.zoostorestorage.API.operation.item.add;
 
+import com.example.tinqin.zoostorestorage.API.base.OperationResult;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -9,7 +10,8 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-public class StorageItemExportResponse {
+public class StorageItemAddResponse implements OperationResult {
+
     private UUID storageID;
     private UUID itemId;
     private BigDecimal price;
