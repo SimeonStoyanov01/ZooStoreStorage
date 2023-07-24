@@ -20,14 +20,13 @@ public class StorageItemImportOperationProcessor implements StorageItemImportOpe
         StorageEntity storageEntity=storageRepository.findById(operationInput.getItemId()).orElseThrow(null);
         storageEntity.setQuantity(storageEntity.getQuantity()+operationInput.getQuantity());
         StorageEntity updateEntity = storageRepository.save(storageEntity);
-        StorageItemImportResponse itemImportResponse=StorageItemImportResponse
+        return StorageItemImportResponse
                 .builder()
                 .storageID(updateEntity.getStorageID())
                 .itemId(updateEntity.getItemId())
                 .price(updateEntity.getPrice())
                 .quantity(updateEntity.getQuantity())
                 .build();
-        return itemImportResponse;
     }
 
 }

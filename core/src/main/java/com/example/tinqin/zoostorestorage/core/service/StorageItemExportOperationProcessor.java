@@ -23,13 +23,12 @@ public class StorageItemExportOperationProcessor implements StorageItemExportOpe
         }
         storageEntity.setQuantity(storageEntity.getQuantity()-operationInput.getQuantity());
         StorageEntity updateEntity = storageRepository.save(storageEntity);
-        StorageItemExportResponse itemExportResponse=StorageItemExportResponse
+        return StorageItemExportResponse
                 .builder()
                 .storageID(updateEntity.getStorageID())
                 .itemId(updateEntity.getItemId())
                 .price(updateEntity.getPrice())
                 .quantity(updateEntity.getQuantity())
                 .build();
-        return itemExportResponse;
     }
 }

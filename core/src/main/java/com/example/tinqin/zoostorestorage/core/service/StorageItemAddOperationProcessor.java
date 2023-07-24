@@ -38,13 +38,12 @@ public class StorageItemAddOperationProcessor implements StorageItemAddOperation
         storageEntity.setQuantity(0);
         storageEntity.setPrice(operationInput.getPrice());
         storageRepository.save(storageEntity);
-        StorageItemAddResponse addResponse = StorageItemAddResponse
+        return StorageItemAddResponse
                 .builder()
                 .storageID(storageEntity.getStorageID())
                 .itemId(storageEntity.getItemId())
                 .price(storageEntity.getPrice())
                 .quantity(storageEntity.getQuantity())
                 .build();
-        return addResponse;
     }
 }
