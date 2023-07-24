@@ -8,9 +8,9 @@
 		<version>3.1.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example.tinqin</groupId>
+	<groupId>com.example.tinqin.zoostorestorage</groupId>
 	<artifactId>ZooStoreStorage</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>ZooStoreStorage</name>
 	<description>ZooStoreStorage</description>
@@ -23,6 +23,7 @@
 	</modules>
 	<properties>
 		<java.version>17</java.version>
+		<revision>0.0.2-SNAPSHOT</revision>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,6 +47,32 @@
 			<version>12.4</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 
 </project>
