@@ -4,6 +4,9 @@ import com.example.tinqin.zoostorestorage.API.operation.item.add.StorageItemAddO
 import com.example.tinqin.zoostorestorage.API.operation.item.add.StorageItemAddRequest;
 import com.example.tinqin.zoostorestorage.API.operation.item.export.StorageItemExportOperation;
 import com.example.tinqin.zoostorestorage.API.operation.item.export.StorageItemExportRequest;
+import com.example.tinqin.zoostorestorage.API.operation.item.getbyid.StorageItemGetByIdOperation;
+import com.example.tinqin.zoostorestorage.API.operation.item.getbyid.StorageItemGetByIdRequest;
+import com.example.tinqin.zoostorestorage.API.operation.item.getbyid.StorageItemGetByIdResponse;
 import com.example.tinqin.zoostorestorage.API.operation.item.importstorage.StorageItemImportOperation;
 import com.example.tinqin.zoostorestorage.API.operation.item.importstorage.StorageItemImportRequest;
 import com.example.tinqin.zoostorestorage.API.operation.item.update.StorageItemUpdatePriceOperation;
@@ -14,28 +17,29 @@ import com.example.tinqin.zoostorestorage.API.operation.item.importstorage.Stora
 import com.example.tinqin.zoostorestorage.API.operation.item.update.StorageItemUpdatePriceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/storageItems")
 public class StorageController {
 
     private final StorageItemAddOperation addItemService;
     private final StorageItemImportOperation importItemService;
     private final StorageItemExportOperation exportItemService;
     private final StorageItemUpdatePriceOperation updatePriceService;
+
+    private final StorageItemGetByIdOperation storageItemGetByIdOperation;
     @Autowired
-    public StorageController(StorageItemAddOperation addItemService, StorageItemImportOperation importItemService, StorageItemExportOperation exportItemService, StorageItemUpdatePriceOperation updatePriceService) {
+    public StorageController(StorageItemAddOperation addItemService, StorageItemImportOperation importItemService, StorageItemExportOperation exportItemService, StorageItemUpdatePriceOperation updatePriceService, StorageItemGetByIdOperation storageItemGetByIdOperation) {
         this.addItemService = addItemService;
         this.importItemService = importItemService;
         this.exportItemService = exportItemService;
         this.updatePriceService = updatePriceService;
+        this.storageItemGetByIdOperation = storageItemGetByIdOperation;
     }
 
 
-    @PostMapping("/addItem")
+    @PostMapping("/newItem")
     public ResponseEntity<StorageItemAddResponse> addItem(@RequestBody StorageItemAddRequest storageItemAddRequest){
         return ResponseEntity.ok(addItemService.process(storageItemAddRequest));
     }
@@ -60,6 +64,12 @@ public class StorageController {
     public ResponseEntity<StorageItemUpdatePriceResponse> updatePrice(@RequestBody StorageItemUpdatePriceRequest storageItemUpdatePriceRequest){
         return ResponseEntity.ok(updatePriceService.process(storageItemUpdatePriceRequest));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<StorageItemGetByIdResponse> getStorageItemById(@PathVariable String id){
+        StorageItemGetByIdRequest request=StorageItemGetByIdRequest.builder().id(id).build();
+        return ResponseEntity.ok(storageItemGetByIdOperation.process(request));
+    }
+
 
 
 }
