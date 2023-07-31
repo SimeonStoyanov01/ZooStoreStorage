@@ -4,6 +4,9 @@ import com.example.tinqin.zoostorestorage.API.operation.item.add.StorageItemAddO
 import com.example.tinqin.zoostorestorage.API.operation.item.add.StorageItemAddRequest;
 import com.example.tinqin.zoostorestorage.API.operation.item.export.StorageItemExportOperation;
 import com.example.tinqin.zoostorestorage.API.operation.item.export.StorageItemExportRequest;
+import com.example.tinqin.zoostorestorage.API.operation.item.getAll.GetCollectionOfStorageItemsByItemIdOperation;
+import com.example.tinqin.zoostorestorage.API.operation.item.getAll.GetCollectionOfStorageItemsByItemIdRequest;
+import com.example.tinqin.zoostorestorage.API.operation.item.getAll.GetCollectionOfStorageItemsByItemIdResponse;
 import com.example.tinqin.zoostorestorage.API.operation.item.getbyid.StorageItemGetByIdOperation;
 import com.example.tinqin.zoostorestorage.API.operation.item.getbyid.StorageItemGetByIdRequest;
 import com.example.tinqin.zoostorestorage.API.operation.item.getbyid.StorageItemGetByIdResponse;
@@ -29,13 +32,16 @@ public class StorageController {
     private final StorageItemUpdatePriceOperation updatePriceService;
 
     private final StorageItemGetByIdOperation storageItemGetByIdOperation;
+
+    private final GetCollectionOfStorageItemsByItemIdOperation getCollectionOfStorageItemsByItemIdOperation;
     @Autowired
-    public StorageController(StorageItemAddOperation addItemService, StorageItemImportOperation importItemService, StorageItemExportOperation exportItemService, StorageItemUpdatePriceOperation updatePriceService, StorageItemGetByIdOperation storageItemGetByIdOperation) {
+    public StorageController(StorageItemAddOperation addItemService, StorageItemImportOperation importItemService, StorageItemExportOperation exportItemService, StorageItemUpdatePriceOperation updatePriceService, StorageItemGetByIdOperation storageItemGetByIdOperation, GetCollectionOfStorageItemsByItemIdOperation getCollectionOfStorageItemsByItemIdOperation) {
         this.addItemService = addItemService;
         this.importItemService = importItemService;
         this.exportItemService = exportItemService;
         this.updatePriceService = updatePriceService;
         this.storageItemGetByIdOperation = storageItemGetByIdOperation;
+        this.getCollectionOfStorageItemsByItemIdOperation = getCollectionOfStorageItemsByItemIdOperation;
     }
 
 
@@ -68,6 +74,12 @@ public class StorageController {
     public ResponseEntity<StorageItemGetByIdResponse> getStorageItemById(@PathVariable String id){
         StorageItemGetByIdRequest request=StorageItemGetByIdRequest.builder().id(id).build();
         return ResponseEntity.ok(storageItemGetByIdOperation.process(request));
+    }
+
+    @PostMapping("/collection")
+    public ResponseEntity<GetCollectionOfStorageItemsByItemIdResponse> getItemCollection(@RequestBody GetCollectionOfStorageItemsByItemIdRequest getCollectionOfStorageItemsByItemIdRequest){
+       // StorageItemGetByIdRequest request=StorageItemGetByIdRequest.builder().id(id).build();
+        return ResponseEntity.ok(getCollectionOfStorageItemsByItemIdOperation.process(getCollectionOfStorageItemsByItemIdRequest));
     }
 
 
