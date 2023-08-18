@@ -55,7 +55,7 @@ public class StorageController {
         return ResponseEntity.ok(importItemService.process(storageItemImportRequest));
     }
 
-    @PatchMapping("/exportItem")
+    @PutMapping("/exportItem")
     public ResponseEntity<?> exportItem(@RequestBody StorageItemExportRequest storageItemExportRequest){
         StorageItemExportResponse storageItemExportResponse;
         try {
@@ -72,7 +72,10 @@ public class StorageController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<StorageItemGetByIdResponse> getStorageItemById(@PathVariable String id){
-        StorageItemGetByIdRequest request=StorageItemGetByIdRequest.builder().id(id).build();
+        StorageItemGetByIdRequest request=StorageItemGetByIdRequest
+                .builder()
+                .id(id)
+                .build();
         return ResponseEntity.ok(storageItemGetByIdOperation.process(request));
     }
 

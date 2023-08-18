@@ -17,7 +17,8 @@ public class StorageItemExportOperationProcessor implements StorageItemExportOpe
 
     @Override
     public StorageItemExportResponse process(StorageItemExportRequest operationInput) {
-        StorageEntity storageEntity=storageRepository.findById(operationInput.getItemId()).orElseThrow(null);
+        StorageEntity storageEntity=storageRepository.findStorageEntityByItemId(operationInput.getItemId())
+                .orElseThrow(null);
         if(storageEntity.getQuantity()<operationInput.getQuantity()){
             throw new RuntimeException();
         }
